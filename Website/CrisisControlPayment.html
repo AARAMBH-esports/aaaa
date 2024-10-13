@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Crisis Control Payment Process</title>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Crisis Control - Process Payment</h1>
+        <p>Please pay ₹30 by scanning the QR code below and upload the screenshot of your payment confirmation.</p>
+
+        <!-- QR Code Image -->
+        <div class="qr-code">
+            <img src="images/QR30.png" alt="Pay ₹30 using QR Code">
+        </div>
+
+        <!-- Payment Screenshot Upload Form -->
+        <form class="payment-form" id="payment-form" enctype="multipart/form-data">
+            <label for="screenshot">Upload Payment Screenshot:</label>
+            <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit Payment</button>
+        </form>
+
+        <!-- Go Back Button -->
+        <button class="back-button" onclick="history.back()">Go Back</button>
+    </div>
+
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lypkzsqzmankrlxwneia.supabase.co'; // Replace with your Supabase URL
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cGt6c3F6bWFua3JseHduZWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NDEzMDQsImV4cCI6MjA0NDQxNzMwNH0.IpAq2-CZ830VYRivgwSiYqULM_v-F0FAgsYR8nl1k64'; // Replace with your Supabase anon key
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Handle form submission
+        document.getElementById('payment-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const screenshotFile = document.getElementById('screenshot').files[0];
+
+            // Upload screenshot to Supabase Storage
+            const { data: screenshotData, error: screenshotError } = await supabase.storage
+                .from('screenshot') // Ensure this is the correct bucket name
+                .upload(`screenshots/${screenshotFile.name}`, screenshotFile);
+
+            if (screenshotError) {
+                console.error('Error uploading screenshot:', screenshotError);
+                alert('Failed to upload screenshot. Please try again.');
+                return;
+            }
+
+            // Get public URL of uploaded screenshot
+            const { publicURL, error: urlError } = supabase.storage
+                .from('screenshot')
+                .getPublicUrl(screenshotData.path);
+
+            if (urlError) {
+                console.error('Error getting public URL:', urlError);
+                alert('Failed to get screenshot URL. Please try again.');
+                return;
+            }
+
+            // Save registration data to Supabase Table
+            const registrationData = {
+                name: 'Your Name', // Replace with actual name from previous form
+                email: 'Your Email', // Replace with actual email from previous form
+                phone: 'Your Phone', // Replace with actual phone from previous form
+                uid: 'Your UID', // Replace with actual UID from previous form
+                inGameName: 'Your In-Game Name', // Replace with actual in-game name from previous form
+                screenshot_url: publicURL, // URL of uploaded screenshot
+                created_at: new Date().toISOString() // Timestamp
+            };
+
+            const { data, error } = await supabase
+                .from('Crisis Control') // Your table name
+                .insert([registrationData]);
+
+            if (error) {
+                console.error('Error saving registration:', error);
+                alert('Failed to save registration data. Please try again.');
+            } else {
+                alert('Registration successful!');
+                // Optionally, redirect to a thank you page or clear the form
+                document.getElementById('payment-form').reset();
+            }
+        });
+    </script>
+</body>
+</html>

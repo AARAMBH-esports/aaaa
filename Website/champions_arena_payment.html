@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Champions Arena Payment Process</title>
+   
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Champion's Arena - Process Payment</h1>
+        <p>Please pay ₹50 by scanning the QR code below and upload the screenshot of your payment confirmation.</p>
+
+        <!-- QR Code Image -->
+        <div class="qr-code">
+            <img src="images/QR50.png" alt="Pay ₹50 using QR Code">
+        </div>
+
+        <!-- Payment Screenshot Upload Form -->
+        <form class="payment-form" action="submit_payment.php" method="post" enctype="multipart/form-data">
+            <label for="screenshot">Upload Payment Screenshot:</label>
+            <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+            
+            <!-- Submit Button -->
+            <button type="submit">Submit Payment</button>
+        </form>
+
+        <!-- Go Back Button -->
+        <button class="back-button" onclick="history.back()">Go Back</button>
+    </div>
+</body>
+</html>

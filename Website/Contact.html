@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Contact us</title>
+  
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="menu-icon">
+            <button class="menu-btn" onclick="toggleDropdown()">☰</button>
+            <div class="dropdown">
+                <a href="index.html">Home</a>
+                <a href="tournaments.html">Tournaments</a>
+                <a href="rules.html">Rules</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+        <a href="index.html"><img src="images/Logo.png (2).png" alt="AARAMBh Logo" class="logo"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact-us" style="background-image: url('images/Contact.png.png');">
+        <h1>Contact Us</h1>
+        
+        <div class="contact-info">
+            <p>For inquiries, please reach out via the following:</p>
+            <p><strong>Email:</strong> aarambh.arena@gmail.com</p>
+            <p><strong>Phone:</strong> 7424971265    9680995144</p>
+            <p><strong>Social Media:</strong></p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/aarambh_arena.official/" target="_blank"><img src="images/instagram.png" alt="Instagram"></a>
+                <a href="https://www.youtube.com/@Aarambh-e8i" target="_blank"><img src="images/youtube.png" alt="YouTube"></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/aarambh_arena.official/" target="_blank"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@Aarambh-e8i" target="_blank"><img src="images/youtube.png" alt="YouTube"></a>
+            <p>Contact: 7424971265  , 9680995144</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

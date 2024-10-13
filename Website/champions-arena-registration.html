@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Champion's Arena Registration</title>
+   
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Champion's Arena Registration</h1>
+    </header>
+    <section>
+        <form id="registration-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="uid">UID:</label>
+            <input type="text" id="uid" required>
+
+            <label for="inGameName">In-Game Name:</label>
+            <input type="text" id="inGameName" required>
+
+            <h2>Process Payment</h2>
+            <p>Registration Fee: ₹50</p>
+            <img src="images/QR50.png" alt="QR Code for Payment">
+
+            <label for="screenshot">Upload Payment Screenshot:</label>
+            <input type="file" id="screenshot" accept="image/*" required>
+
+            <button type="submit">Submit Registration</button>
+            <button type="button" onclick="goBack()">Go Back</button>
+        </form>
+    </section>
+
+    <script>
+        // Initialize Supabase
+const supabase = supabase.createClient('https://lypkzsqzmankrlxwneia.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cGt6c3F6bWFua3JseHduZWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NDEzMDQsImV4cCI6MjA0NDQxNzMwNH0.IpAq2-CZ830VYRivgwSiYqULM_v-F0FAgsYR8nl1k64');
+
+// Example: Test connection
+async function testSupabaseConnection() {
+    const { data, error } = await supabase.from('Champions Arena').select('*');
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(data);
+    }
+}
+
+testSupabaseConnection();
+
+
+      
+
+        // Handle form submission
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const uid = document.getElementById('uid').value;
+            const inGameName = document.getElementById('inGameName').value;
+            const screenshotFile = document.getElementById('screenshot').files[0];
+
+            // Save screenshot to Firebase Storage
+            const storageRef = firebase.storage().ref();
+            const screenshotRef = storageRef.child('screenshots/' + screenshotFile.name);
+
+            screenshotRef.put(screenshotFile).then(function(snapshot) {
+                return snapshot.ref.getDownloadURL();
+            }).then(function(downloadURL) {
+                // Save registration data to Realtime Database
+                const registrationData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    uid: uid,
+                    inGameName: inGameName,
+                    paymentScreenshot: downloadURL,
+                    tournament: "Champion's Arena",
+                };
+
+                return firebase.database().ref('registrations/').push(registrationData);
+            }).then(function() {
+                alert("Registration successful!");
+                // Optionally, redirect to a thank you page or clear the form
+                document.getElementById('registration-form').reset();
+            }).catch(function(error) {
+                console.error("Error saving registration: ", error);
+                alert("Registration failed. Please try again.");
+            });
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

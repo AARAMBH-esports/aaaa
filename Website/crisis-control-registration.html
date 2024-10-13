@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Crisis Control Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html"><img src="images/Logo.png (2).png" alt="AARAMBh Logo" class="logo"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="registration-form">
+        <h1>Crisis Control Registration</h1>
+        <form id="registration-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="uid">UID:</label>
+            <input type="text" id="uid" name="uid" required>
+
+            <label for="ingame-name">In-Game Name:</label>
+            <input type="text" id="ingame-name" name="ingame-name" required>
+
+            <h2>Process Payment</h2>
+            <p>Registration Fee: ₹30</p>
+            <img src="images/QR30.png" alt="QR Code for Payment">
+
+            <label for="screenshot">Upload Payment Screenshot:</label>
+            <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+
+            <button type="submit">Submit Registration</button>
+            <button type="button" onclick="goBack()">Go Back</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/aarambh_arena.official/"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@Aarambh-e8i"><img src="images/youtube.png" alt="YouTube"></a>
+            <p>Contact: 7424971265, 9680995144</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lypkzsqzmankrlxwneia.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cGt6c3F6bWFua3JseHduZWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NDEzMDQsImV4cCI6MjA0NDQxNzMwNH0.IpAq2-CZ830VYRivgwSiYqULM_v-F0FAgsYR8nl1k64'; // Ensure this is your actual Supabase key
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Handle form submission
+        document.getElementById('registration-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const uid = document.getElementById('uid').value;
+            const inGameName = document.getElementById('ingame-name').value;
+            const screenshotFile = document.getElementById('screenshot').files[0];
+
+            // Upload the screenshot to Supabase Storage
+            const { data: storageData, error: storageError } = await supabase.storage
+                .from('screenshot') // Ensure this is the correct bucket name
+                .upload(`screenshots/${screenshotFile.name}`, screenshotFile);
+
+            if (storageError) {
+                console.error("Error uploading screenshot:", storageError);
+                alert("Failed to upload screenshot. Please try again.");
+                return;
+            }
+
+            const screenshotUrl = `${supabaseUrl}/storage/v1/object/public/screenshot/screenshots/${screenshotFile.name}`;
+
+            // Insert registration data into Supabase
+            const { data, error } = await supabase
+                .from('Crisis Control') // Ensure this is the correct table name
+                .insert([ 
+                    { 
+                        name: name, 
+                        email: email, 
+                        UID: uid, 
+                        phone: phone, 
+                        screenshot_url: screenshotUrl,
+                        inGameName: inGameName
+                    } 
+                ]);
+
+            if (error) {
+                console.error("Error saving registration:", error);
+                alert("Registration failed. Please try again.");
+            } else {
+                alert("Registration successful!");
+                document.getElementById('registration-form').reset();
+            }
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

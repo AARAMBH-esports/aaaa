@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://lypkzsqzmankrlxwneia.supabase.co'; // Replace with your Supabase URL
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5cGt6c3F6bWFua3JseHduZWlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NDEzMDQsImV4cCI6MjA0NDQxNzMwNH0.IpAq2-CZ830VYRivgwSiYqULM_v-F0FAgsYR8nl1k64'; // Replace with your anon key
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Example: Test connection
+        async function testSupabaseConnection() {
+            const { data, error } = await supabase.from('your-table').select('*'); // Replace 'your-table' with your actual table name
+            if (error) {
+                console.error(error);
+            } else {
+                console.log(data);
+            }
+        }
+
+        // Call the test function
+        testSupabaseConnection();
+    </script>
+
+    <header>
+        <div class="menu-icon">
+            <button class="menu-btn" onclick="toggleDropdown()">☰</button>
+            <div class="dropdown">
+                <a href="index.html">Home</a>
+                <a href="tournaments.html">Tournaments</a>
+                <a href="rules.html">Rules</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+        <a href="index.html"><img src="images/Logo.png (2).png" alt="AARAMBh Logo" class="logo"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="home-section" style="background-image: url('images/Theme.png');">
+        <h1>Welcome to AARAMBH</h1>
+        <p>Play Free Fire Esports and earn amazing cash prizes!</p>
+        <p>Join the action, showcase your skills, and stand a chance to be crowned champion!</p>
+        <button class="view-tournaments" onclick="location.href='tournaments.html'">View Tournaments</button>
+        <div class="notice-board">
+            <h2>Latest Updates:</h2>
+            <ul>
+                <li>New tournament added: Champion's Arena!</li>
+                <li>Registration for Crisis Control is now open!</li>
+                <li>Check our Rules page for updated tournament policies!</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/aarambh_arena.official/" target="_blank"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@Aarambh-e8i" target="_blank"><img src="images/youtube.png" alt="YouTube"></a>
+            <p>Contact: 7424971265, 9680995144</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

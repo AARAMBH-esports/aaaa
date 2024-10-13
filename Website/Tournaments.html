@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Tournament</title>
+  
+   
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tournament-details {
+            display: none; /* Hide by default */
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html"><img src="images/Logo.png (2).png" alt="AARAMBh Logo" class="logo"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon">
+            <button class="menu-btn">☰</button>
+            <div class="dropdown">
+                <a href="index.html">Home</a>
+                <a href="tournaments.html">Tournaments</a>
+                <a href="rules.html">Rules</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="tournament-list" style="background-image: url('images/Theme.png');">
+        <!-- Survivor's Arena -->
+        <div class="tournament">
+            <img src="images/Survivor'sArena.png" alt="Survivor's Arena">
+            <h2>Survivor's Arena</h2>
+            <p>Entry Fee: ₹20</p>
+            <p>Per Kill Bonus: ₹10</p>
+            <p>1st Place: Kill Bonus + ₹30</p>
+            <p>2nd Place: Kill Bonus + ₹20</p>
+            <p>3rd Place: Kill Bonus + ₹10</p>
+            <a href="survivors-arena-registration.html" class="register-btn">Register Now</a>            <button class="view-details" onclick="toggleDetails('survivor-details')">View Details</button>
+            <div id="survivor-details" class="tournament-details">
+                <p>Additional rules and info for Survivor's Arena will go here.</p>
+            </div>
+        </div>
+
+        <!-- Crisis Control -->
+        <div class="tournament">
+            <img src="images/CrisisControl.png" alt="Crisis Control">
+            <h2>Crisis Control</h2>
+            <p>Entry Fee: ₹30</p>
+            <p>Per Kill Bonus: ₹20</p>
+            <p>1st Place: Kill Bonus + ₹50</p>
+            <p>2nd Place: Kill Bonus + ₹30</p>
+            <p>3rd Place: Kill Bonus + ₹20</p>
+            <a href="crisis-control-registration.html" class="register-btn">Register Now</a>           
+            <button class="view-details" onclick="toggleDetails('crisis-details')">View Details</button>
+            <div id="crisis-details" class="tournament-details">
+                <p>Additional rules and info for Crisis Control will go here.</p>
+            </div>
+        </div>
+
+        <!-- Champion's Arena -->
+        <div class="tournament">
+            <img src="images/Champion'sArena.png" alt="Champion's Arena">
+            <h2>Champion's Arena</h2>
+            <p>Entry Fee: ₹50</p>
+            <p>Per Kill Bonus: ₹35</p>
+            <p>1st Place: Kill Bonus + ₹100</p>
+            <p>2nd Place: Kill Bonus + ₹60</p>
+            <p>3rd Place: Kill Bonus + ₹40</p>
+            <a href="champions-arena-registration.html" class="register-btn">Register Now</a>           
+            <button class="view-details" onclick="toggleDetails('champion-details')">View Details</button>
+            <div id="champion-details" class="tournament-details">
+                <p>Additional rules and info for Champion's Arena will go here.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/aarambh_arena.official/"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@Aarambh-e8i"><img src="images/youtube.png" alt="YouTube"></a>
+            <p>Contact: 7424971265  ,  9680995144</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        function toggleDetails(id) {
+            var details = document.getElementById(id);
+            if (details.style.display === "none" || details.style.display === "") {
+                details.style.display = "block"; // Show details
+            } else {
+                details.style.display = "none"; // Hide details
+            }
+        }
+    </script>
+</body>
+</html>

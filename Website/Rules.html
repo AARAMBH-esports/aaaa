@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AARAMBh - Rules</title>
+   
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="menu-icon">
+            <button class="menu-btn" onclick="toggleDropdown()">☰</button>
+            <div class="dropdown">
+                <a href="index.html">Home</a>
+                <a href="tournaments.html">Tournaments</a>
+                <a href="rules.html">Rules</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+        <a href="index.html"><img src="images/Logo.png (2).png" alt="AARAMBh Logo" class="logo"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tournaments.html">Tournaments</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="rules" style="background-image: url('images/Rule.png.png');">
+        <h1>Rules</h1>
+        
+        <h2>1. Eligibility & Registration</h2>
+        <p>Players must be at least level 15, and their in-game ID must match the registered ID.</p>
+        <p>All participants must register before the tournament starts, and registration will close 24 hours before the event.</p>
+
+        <h2>2. Payment</h2>
+        <p>You must send your payment screenshot, and ensure the details are correct. Payments should be made via our specified methods.</p>
+
+        <h2>3. Fair Play</h2>
+        <p>No hacking is allowed. Any players found cheating or using unauthorized software will be disqualified immediately.</p>
+
+        <h2>4. Match ID Usage</h2>
+        <p>Only the registered ID can be used. If you need to change it, notify us at least 45 hours before the match.</p>
+        <p>After the match, you must submit a screenshot of your match results and eliminations.</p>
+
+        <h2>5. Refunds</h2>
+        <p>Select a tournament type to view specific refund rules:</p>
+        <select id="tournamentType" onchange="showRefundDetails()">
+            <option value="">Select Tournament</option>
+            <option value="Survivor">Survivor's Arena</option>
+            <option value="Crisis">Crisis Control</option>
+            <option value="Champion">Champion's Arena</option>
+        </select>
+        <div id="refundDetails" style="margin-top: 20px;"></div>
+
+        <script>
+            
+            function showRefundDetails() {
+                const type = document.getElementById('tournamentType').value;
+                let details = '';
+                switch (type) {
+                    case 'Survivor':
+                        details = '<p>Entry Fee: Rs. 20<br>If you cannot join the tournament, your entry fee will be refunded.</p>';
+                        break;
+                    case 'Crisis':
+                        details = '<p>Entry Fee: Rs. 50<br>Refunds are not allowed after registration is confirmed.</p>';
+                        break;
+                    case 'Champion':
+                        details = '<p>Entry Fee: Rs. 100<br>No refunds will be processed after the match starts.</p>';
+                        break;
+                    default:
+                        details = '';
+                }
+                document.getElementById('refundDetails').innerHTML = details;
+            }
+        </script>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/aarambh_arena.official/" target="_blank"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@Aarambh-e8i" target="_blank"><img src="images/youtube.png" alt="YouTube"></a>
+            <p>Contact: 7424971265  ,  9680995144</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
